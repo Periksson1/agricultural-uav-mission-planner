@@ -1,0 +1,7 @@
+* text=auto
+*.m text eol=lf
+*.md text eol=lf
+*.geojson text eol=lf
+*.slx binary
+*.mat binary
+*.png binary

@@ -1,0 +1,16 @@
+function root = setupProject()
+%SETUPPROJECT Add this repository's folders for the current MATLAB session.
+% Paths are not saved globally. Generated files go under outputs/.
+root = fileparts(mfilename('fullpath'));
+addpath(root, fullfile(root,'src'), fullfile(root,'config'), ...
+    fullfile(root,'models'), fullfile(root,'analysis'), ...
+    fullfile(root,'examples'), fullfile(root,'tests'), '-begin');
+outputFolder = fullfile(root, 'outputs');
+if ~isfolder(outputFolder), mkdir(outputFolder); end
+if exist('Simulink.fileGenControl', 'file') == 2
+    Simulink.fileGenControl('set', ...
+        'CacheFolder', fullfile(outputFolder,'cache'), ...
+        'CodeGenFolder', fullfile(outputFolder,'codegen'), ...
+        'createDir', true);
+end
+end

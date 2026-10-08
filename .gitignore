@@ -1,0 +1,16 @@
+# All regenerated figures, tables, simulation logs and build artefacts.
+/outputs/
+slprj/
+*.slxc
+*_ert_rtw/
+*_grt_rtw/
+sccprj/
+*.asv
+*.autosave
+*.slx.original
+*.m~
+matlab_crash_dump*
+java.log.*
+.DS_Store
+Thumbs.db
+# Keep required example MAT files and curated docs/images in version control.
