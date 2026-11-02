@@ -5,10 +5,16 @@ MATLAB and Simulink tools developed to assess the operational and commercial fea
 The project connects field geometry, automated route planning and mission economics to a six-degree-of-freedom (6-DOF) flight simulation. It investigates whether the proposed aircraft can follow its planned spray paths and how field geometry and operational assumptions affect productivity and profitability.
 
 <p align="center">
-  <img src="docs/images/report-field-import-workflow.png" alt="Original report: satellite imagery, traced field-boundary polygons and fields imported into MATLAB" width="900">
+  <img src="docs/images/field-satellite-boundaries.png" alt="Original satellite area alongside field-boundary polygons traced in QGIS" width="1200">
 </p>
 
-*From satellite imagery to planner inputs: field boundaries are traced in QGIS, exported as GeoJSON and imported into MATLAB, where the ground station is selected. Cropped from the original report figures, with surrounding report text removed. Satellite imagery: Esri World Imagery and its data providers; boundaries prepared in QGIS.*
+*Original satellite area (left) and field polygons traced in QGIS (right). Satellite imagery: Esri World Imagery and its data providers.*
+
+<p align="center">
+  <img src="docs/images/field-matlab-boundaries.png" alt="GeoJSON field boundaries imported into MATLAB with selected ground station" width="1000">
+</p>
+
+*The same field boundaries imported into MATLAB from GeoJSON, with the selected ground-station position. Both images are cropped directly from the original report; surrounding report prose and captions have been removed.*
 
 ## Project context and my contribution
 
@@ -40,13 +46,63 @@ flowchart TD
 
 Route planning uses Dubins connections constrained by airspeed and bank angle. Battery and payload limits divide the mission into sorties, with ground turnaround included in mission accounting. The flight simulation then assesses tracking performance along the exported cruise route.
 
+## 6-DOF model development
+
+I developed the Simulink model to assess how the proposed aircraft would follow the mission planner's routes. The model combines six-degree-of-freedom equations of motion, aerodynamic forces and moments, propulsion, gravity, and changing payload mass and inertia during spraying.
+
+Aircraft geometry and mission parameters came from the team's design. The aerodynamic formulation combines team-supplied lift data with representative RCAM-based coefficient relationships. These assumptions support a concept-level feasibility assessment; the model was not calibrated against flight-test data.
+
+### Whole-system architecture
+
+<p align="center">
+  <img src="docs/images/report-6dof-system.png" alt="Report Figure 33: mission waypoints, control system, forces and moments, 6-DOF equations and aircraft-state feedback" width="1200">
+</p>
+
+*Original report Figure 33: closed-loop simulation architecture.*
+
+Mission waypoints and the current aircraft states feed the control system. Control commands determine forces and moments, which drive the Euler-angle 6-DOF equations of motion. The resulting aircraft states are fed back to the controllers and used to assess trajectory tracking.
+
+### Guidance and control architecture
+
+<p align="center">
+  <img src="docs/images/report-control-architecture.png" alt="Report Figure 38: guidance, control, aircraft plant and navigation feedback" width="1000">
+</p>
+
+*Original report Figure 38: guidance, control and navigation architecture. The diagram includes a conceptual noise input; the reported simulations assumed ideal sensor measurements.*
+
+The guidance stage converts the planned route into reference commands. Cascaded controllers separate the slower path-following response from the faster aircraft attitude response:
+
+- **Longitudinal control:** altitude error generates a pitch command; the inner pitch loop commands elevator deflection.
+- **Lateral control:** cross-track error generates a roll command; the inner roll loop commands aileron deflection.
+- **Airspeed and sideslip:** throttle regulates cruise airspeed, while a rudder sideslip controller was investigated separately in the report.
+
+<p align="center">
+  <img src="docs/images/report-cascaded-control.png" alt="Report Figure 39: outer and inner control loops with aircraft feedback" width="1000">
+</p>
+
+*Original report Figure 39: outer guidance and inner attitude-control loops.*
+
+Spray start/end gates link payload release to the planned spray lanes. Tracking analysis compares the simulated trajectory with the planned route, including lane-level cross-track and altitude errors. The flight workflow begins at a cruise initial condition; vertical take-off and transition dynamics remain outside that workflow.
+
 ## Flight-tracking results
 
 <p align="center">
-  <img src="docs/images/report-sortie-46-comparison.png" alt="Original report: planned route, generated waypoints and simulated trajectory for Sortie 46" width="900">
+  <img src="docs/images/report-sortie-46-1.png" alt="Sortie 46: initial planned route" width="1200">
 </p>
 
-*Sortie 46 from the original report: initial plan, generated waypoints and planned-versus-simulated trajectory. The plots retain the report's original simulation settings; surrounding report text and captions have been cropped out. From top to bottom: initial plan, generated waypoints and path comparison.*
+*Initial planned route for Sortie 46.*
+
+<p align="center">
+  <img src="docs/images/report-sortie-46-2.png" alt="Sortie 46: exported flight-simulation waypoints" width="1200">
+</p>
+
+*Generated waypoints passed to the flight simulation.*
+
+<p align="center">
+  <img src="docs/images/report-sortie-46-3.png" alt="Sortie 46: planned versus simulated trajectory" width="1200">
+</p>
+
+*Planned versus simulated trajectory. These plots are cropped from the original report and retain its simulation settings. Click a plot to open the image.*
 
 The original report evaluated **181 simulated sorties**. In **173 sorties, more than 95% of spray time was spent within both the specified horizontal and vertical tracking-error bounds**. This measures simulated trajectory tracking; spray deposition and distribution were not modelled.
 
