@@ -4,9 +4,9 @@ MATLAB and Simulink tools developed to assess the operational and commercial fea
 
 The project connects field geometry, automated route planning and mission economics to a six-degree-of-freedom (6-DOF) flight simulation. It investigates whether the proposed aircraft can follow its planned spray paths and how field geometry and operational assumptions affect productivity and profitability.
 
-![Planned agricultural spraying mission and an individual sortie](docs/images/mission-overview.png)
+![Original report: satellite imagery, traced field-boundary polygons and fields imported into MATLAB](docs/images/report-field-import-workflow.png)
 
-*The full planned mission and an individual sortie. The 3D altitude axis is expanded for visibility. These are model outputs, not recorded flights.*
+*From satellite imagery to planner inputs: field boundaries are traced in QGIS, exported as GeoJSON and imported into MATLAB, where the ground station is selected. These are the original report figures; figure and reference numbers refer to that report.*
 
 ## Project context and my contribution
 
