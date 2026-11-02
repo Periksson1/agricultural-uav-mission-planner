@@ -47,7 +47,9 @@ The default field import does not require clicking through the drawing tools. Fl
 
 For a smaller synthetic layout, run `runSmallExample` after `setupProject`. To return to the SA farm afterwards, set `layoutOptions = struct(); missionCfgOverrides = struct();` and run `runMission` again.
 
-![Battery, payload, coverage and baseline economics](images/mission-summary.png)
+<p align="center">
+  <img src="images/mission-summary.png" alt="Battery, payload, coverage and baseline economics" width="900">
+</p>
 
 *Battery and payload replenishment between sorties, cumulative spray coverage, and the mission's modelled financial totals.*
 
@@ -95,13 +97,17 @@ Complete the planning steps above first. The repository includes **SIXDOF28**, t
 
 The mission planner uses **ENU** coordinates: `[East, North, Up]` in metres. The flight model and exported waypoints use **NED**: `[North, East, Down]`. Flight simulation starts at the exported cruise initial condition; it does not reproduce the planner's vertical take-off/hover sequence.
 
-![Planned versus simulated flight](images/flight-tracking.png)
+<p align="center">
+  <img src="images/flight-tracking.png" alt="Planned versus simulated flight" width="900">
+</p>
 
 *One sortie from the supplied flight model, shown over its planned cruise interval (excluding vertical flight and ground turnaround). The differences between the curves are part of the model's tracking performance; the simulated trace is not substituted for the planned route.*
 
-![Project report: initial plan, generated waypoints and planned-versus-simulated trajectory for Sortie 46](images/report-sortie-46-comparison.png)
+<p align="center">
+  <img src="images/report-sortie-46-comparison.png" alt="Project report: initial plan, generated waypoints and planned-versus-simulated trajectory for Sortie 46" width="900">
+</p>
 
-*Sortie 46 from the original project report: (a) initial plan, (b) generated waypoints and (c) path comparison. This supplied report figure retains its original layout and simulation settings.*
+*Sortie 46 from the original project report: (a) initial plan, (b) generated waypoints and (c) path comparison. The plots retain their original simulation settings; surrounding report text and captions have been cropped out.*
 
 ## Change the mission
 
@@ -159,9 +165,11 @@ runMission
 
 Draw rectangular fields with `layoutOptions = struct('mode','interactive');`, then run `runMission`. See [field inputs and coordinate conventions](field-inputs.md) for file formats, saved layouts and importer limitations.
 
-![Project report: satellite imagery, field-boundary polygons and imported fields with an interactively selected ground station](images/report-field-import-workflow.png)
+<p align="center">
+  <img src="images/report-field-import-workflow.png" alt="Project report: satellite imagery, field-boundary polygons and imported fields with an interactively selected ground station" width="900">
+</p>
 
-*Field preparation from the original project report: satellite imagery is used to define boundary polygons, which are imported into MATLAB as GeoJSON. The lower figure shows interactive ground-station placement. Figure numbers and reference numbers within the image refer to the original report.*
+*Field preparation from the original project report: satellite imagery is used to define boundary polygons, which are imported into MATLAB as GeoJSON. The lower figure shows interactive ground-station placement. Surrounding report text and captions have been cropped out. Satellite imagery: Esri World Imagery and its data providers.*
 
 ## Economics and other analyses
 
@@ -182,7 +190,9 @@ Run `setupProject` first. Each analysis has its editable settings near the top o
 
 The economic studies intentionally retain their own price/cost assumptions; they are stated in their scripts. The scenario called “optimal” in the original comparison is a selected alternative, not a proof of global optimality. The profit search defaults to one coordinate-search iteration; increasing `maxIterations` permits multiple passes. Full parameter sweeps can be substantially slower than a single mission.
 
-![Economic comparison across field sizes and shapes](images/economic-scenarios.png)
+<p align="center">
+  <img src="images/economic-scenarios.png" alt="Economic comparison across field sizes and shapes" width="900">
+</p>
 
 *Results from `runEconomicScenarioComparison`, using that study's cost assumptions. The first scenarios vary field size; the final scenarios compare shapes at 120 ha.*
 
@@ -220,7 +230,7 @@ Economic figures and tables go to `outputs/economics/`; batch tracking results g
 
 To regenerate the mission/flight README images, run the default mission, export its waypoints, simulate a sortie, and call `exportReadmeFigures`. This writes to `docs/images/` intentionally. If the economic scenario results have already been generated, it also copies their profit-comparison figure into the README image folder. Standalone path illustrations are available as `visualizeDubinsFieldTransfer`, `visualizeOneSprayLaneClimbTurnDescent` and `visualizeRectangularSprayLaneGeneration`.
 
-The two `report-*.png` images are supplied excerpts from the original project report, included unchanged. They are preserved when `exportReadmeFigures` is run.
+The two `report-*.png` images are cropped figure excerpts from the original project report, with surrounding prose and captions removed. They are preserved when `exportReadmeFigures` is run.
 
 ## Checks and troubleshooting
 

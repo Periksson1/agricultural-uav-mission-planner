@@ -4,9 +4,11 @@ MATLAB and Simulink tools developed to assess the operational and commercial fea
 
 The project connects field geometry, automated route planning and mission economics to a six-degree-of-freedom (6-DOF) flight simulation. It investigates whether the proposed aircraft can follow its planned spray paths and how field geometry and operational assumptions affect productivity and profitability.
 
-![Original report: satellite imagery, traced field-boundary polygons and fields imported into MATLAB](docs/images/report-field-import-workflow.png)
+<p align="center">
+  <img src="docs/images/report-field-import-workflow.png" alt="Original report: satellite imagery, traced field-boundary polygons and fields imported into MATLAB" width="900">
+</p>
 
-*From satellite imagery to planner inputs: field boundaries are traced in QGIS, exported as GeoJSON and imported into MATLAB, where the ground station is selected. These are the original report figures; figure and reference numbers refer to that report.*
+*From satellite imagery to planner inputs: field boundaries are traced in QGIS, exported as GeoJSON and imported into MATLAB, where the ground station is selected. Cropped from the original report figures, with surrounding report text removed. Satellite imagery: Esri World Imagery and its data providers; boundaries prepared in QGIS.*
 
 ## Project context and my contribution
 
@@ -40,9 +42,11 @@ Route planning uses Dubins connections constrained by airspeed and bank angle. B
 
 ## Flight-tracking results
 
-![Original report: planned route, generated waypoints and simulated trajectory for Sortie 46](docs/images/report-sortie-46-comparison.png)
+<p align="center">
+  <img src="docs/images/report-sortie-46-comparison.png" alt="Original report: planned route, generated waypoints and simulated trajectory for Sortie 46" width="900">
+</p>
 
-*Sortie 46 from the original report: initial plan, generated waypoints and planned-versus-simulated trajectory. The figure retains the report's original settings and layout.*
+*Sortie 46 from the original report: initial plan, generated waypoints and planned-versus-simulated trajectory. The plots retain the report's original simulation settings; surrounding report text and captions have been cropped out. From top to bottom: initial plan, generated waypoints and path comparison.*
 
 The original report evaluated **181 simulated sorties**. In **173 sorties, more than 95% of spray time was spent within both the specified horizontal and vertical tracking-error bounds**. This measures simulated trajectory tracking; spray deposition and distribution were not modelled.
 
@@ -107,6 +111,6 @@ Generated results are written under `outputs/` and excluded from Git.
 
 **Peter Eriksson — modelling and simulation**, University of Bath, third-year Group Business Design Project, May 2026. The wider agricultural spray drone concept was developed by an eight-person team; aircraft and subsystem inputs include their design work.
 
-The modelling approach draws on established aircraft dynamics, RCAM aerodynamic relationships and MathWorks modelling tools. The original report records the underlying references. Satellite imagery used for field preparation is credited within the supplied report figure; QGIS was used to define the boundary polygons.
+The modelling approach draws on established aircraft dynamics, RCAM aerodynamic relationships and MathWorks modelling tools. The original report records the underlying references. Satellite imagery used for field preparation: Esri World Imagery and its data providers, as cited in the original report. QGIS was used to define the boundary polygons.
 
 A repository licence has not yet been assigned. MATLAB, Simulink and the required toolboxes are separate MathWorks products and are not included here.
